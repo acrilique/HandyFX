@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio Version 17
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HandyFX - Standalone Plugin", "HandyFX_StandalonePlugin.vcxproj", "{98925A1B-A443-8CBC-8069-624BDD17BFE0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3ACD022B-6760-00F2-4927-8BE1E480F1AA} = {3ACD022B-6760-00F2-4927-8BE1E480F1AA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HandyFX - VST3", "HandyFX_VST3.vcxproj", "{F0BD714C-5175-1F77-3520-D5589BA6503E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3ACD022B-6760-00F2-4927-8BE1E480F1AA} = {3ACD022B-6760-00F2-4927-8BE1E480F1AA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HandyFX - Shared Code", "HandyFX_SharedCode.vcxproj", "{3ACD022B-6760-00F2-4927-8BE1E480F1AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F0BD714C-5175-1F77-3520-D5589BA6503E}.Debug|x64.ActiveCfg = Debug|x64
+		{F0BD714C-5175-1F77-3520-D5589BA6503E}.Debug|x64.Build.0 = Debug|x64
+		{F0BD714C-5175-1F77-3520-D5589BA6503E}.Release|x64.ActiveCfg = Release|x64
+		{F0BD714C-5175-1F77-3520-D5589BA6503E}.Release|x64.Build.0 = Release|x64
+		{98925A1B-A443-8CBC-8069-624BDD17BFE0}.Debug|x64.ActiveCfg = Debug|x64
+		{98925A1B-A443-8CBC-8069-624BDD17BFE0}.Debug|x64.Build.0 = Debug|x64
+		{98925A1B-A443-8CBC-8069-624BDD17BFE0}.Release|x64.ActiveCfg = Release|x64
+		{98925A1B-A443-8CBC-8069-624BDD17BFE0}.Release|x64.Build.0 = Release|x64
+		{3ACD022B-6760-00F2-4927-8BE1E480F1AA}.Debug|x64.ActiveCfg = Debug|x64
+		{3ACD022B-6760-00F2-4927-8BE1E480F1AA}.Debug|x64.Build.0 = Debug|x64
+		{3ACD022B-6760-00F2-4927-8BE1E480F1AA}.Release|x64.ActiveCfg = Release|x64
+		{3ACD022B-6760-00F2-4927-8BE1E480F1AA}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
