@@ -284,7 +284,12 @@ float HandyFXAudioProcessor::getDelayTimeFraction(int index)
 
 float HandyFXAudioProcessor::getBPM()
 {
-	return aubioWrapper.getBPM();
+    float detected_bpm = aubioWrapper.getBPM();
+    if (detected_bpm > 160.0f)
+        detected_bpm /= 2.0f;
+    else if (detected_bpm < 80.0f)
+        detected_bpm *= 2.0f;
+	return detected_bpm;
 }
 
 //==============================================================================
