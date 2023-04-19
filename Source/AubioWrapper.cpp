@@ -100,3 +100,8 @@ float AubioWrapper::getDelayTime(float division)
 
     return (60.0f / detected_bpm) * division;
 }
+
+float AubioWrapper::getBPM()
+{
+	return detected_bpm;
+}

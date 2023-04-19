@@ -3117,6 +3117,9 @@
     <ClCompile Include="..\..\Source\AubioWrapper.cpp">
       <Filter>HandyFX\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\DelayControls.cpp">
+      <Filter>HandyFX\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\PluginProcessor.h">
@@ -6144,6 +6147,9 @@
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\AubioWrapper.h">
+      <Filter>HandyFX\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DelayControls.h">
       <Filter>HandyFX\Source</Filter>
     </ClInclude>
   </ItemGroup>

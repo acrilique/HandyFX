@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AubioWrapper.cpp" />
+    <ClCompile Include="..\..\Source\DelayControls.cpp" />
     <ClCompile Include="..\..\Source\PluginProcessor.cpp" />
     <ClCompile Include="..\..\Source\PluginEditor.cpp" />
     <ClCompile Include="..\..\..\..\VSCode\user_modules\foleys_gui_magic\Editor\foleys_GUITreeEditor.cpp">
@@ -2575,6 +2576,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AubioWrapper.h" />
+    <ClInclude Include="..\..\Source\DelayControls.h" />
     <ClInclude Include="..\..\Source\PluginProcessor.h" />
     <ClInclude Include="..\..\Source\PluginEditor.h" />
     <ClInclude Include="..\..\..\..\VSCode\user_modules\foleys_gui_magic\Editor\foleys_GUITreeEditor.h" />

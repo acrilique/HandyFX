@@ -16,6 +16,7 @@ public:
 	bool initialiseWrapper(int sampleRate, int bufferSize);
 	void detectBeats(const juce::AudioBuffer<float>& buffer);
 	float getDelayTime(float division);
+	float getBPM();
 
 private:
 
