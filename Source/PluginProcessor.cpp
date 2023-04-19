@@ -196,7 +196,7 @@ void HandyFXAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
 void HandyFXAudioProcessor::readCircularBuffer(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<float>& delayBuffer, int channel)
 {
     float feedback = *parameters.getRawParameterValue("Feedback");
-    bool tempoSync = /*parameters.getRawParameterValue("TempoSync")->load();*/true;
+    bool tempoSync = parameters.getRawParameterValue("TempoSync")->load();
     float delayTime;
     if (tempoSync == true) {
         delayTime = aubioWrapper.getDelayTime(getDelayTimeFraction(*parameters.getRawParameterValue("DelayDiv")));
