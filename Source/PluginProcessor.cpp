@@ -27,6 +27,7 @@ HandyFXAudioProcessor::HandyFXAudioProcessor()
 #endif
 {
     parameters.state = juce::ValueTree(juce::Identifier("HandyFXPlugin"));
+    setReverbParams();
     //addParameter(feedbackParam = new juce::AudioParameterFloat("Feedback", "Feedback", juce::NormalisableRange<float>(0.1f, 10.f, 0.05f, 1.f), 0.7f));
     //addParameter(delayParam = new juce::AudioParameterFloat("Delay", "Delay", juce::NormalisableRange<float>(0.01f, 2.f, 0.01f, 1.f), 1.f));
     //addParameter(tempoSyncParam = new juce::AudioParameterBool("TempoSync", "Tempo Sync", false));
@@ -135,6 +136,7 @@ void HandyFXAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
     auto delayBufferSize = static_cast<int>(sampleRate * 2.0);
     delayBuffer.setSize(getTotalNumOutputChannels(), delayBufferSize);
     aubioWrapper.initialiseWrapper(sampleRate, samplesPerBlock);
+    reverb.setParameters(reverbParams);
 }
 
 void HandyFXAudioProcessor::releaseResources()
@@ -227,6 +229,8 @@ void HandyFXAudioProcessor::readCircularBuffer(juce::AudioBuffer<float>& buffer,
 
 }
 
+
+
 void HandyFXAudioProcessor::fillCircularBuffer(juce::AudioBuffer<float>& buffer, int channel)
 {
     auto* channelData = buffer.getWritePointer(channel);
@@ -257,7 +261,15 @@ void HandyFXAudioProcessor::updateWritePosition(juce::AudioBuffer<float>& buffer
 }
 
 //==============================================================================
-
+void HandyFXAudioProcessor::setReverbParams()
+{
+	reverbParams.roomSize = *parameters.getRawParameterValue("RoomSize");
+	reverbParams.damping = *parameters.getRawParameterValue("Damping");
+	reverbParams.width = *parameters.getRawParameterValue("Width");
+	reverbParams.dryLevel = *parameters.getRawParameterValue("DryLevel");
+	reverbParams.wetLevel = *parameters.getRawParameterValue("WetLevel");
+	reverb.setParameters(reverbParams);
+}
 //==============================================================================
 // 
 
@@ -299,6 +311,11 @@ std::unique_ptr<juce::AudioProcessorParameterGroup> HandyFXAudioProcessor::creat
     auto group = std::make_unique<juce::AudioProcessorParameterGroup>("reverb", "Reverb", "|");
 
     // Add your reverb-specific parameters here
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("RoomSize", "Room Size", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("Damping", "Damping", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.0f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("Width", "Width", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("DryLevel", "Dry Level", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("WetLevel", "Wet Level", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.0f));
 
     return group;
 }

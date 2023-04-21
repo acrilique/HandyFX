@@ -61,11 +61,11 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
  
     //==============================================================================
-
+    // Delay functions
     void HandyFXAudioProcessor::readCircularBuffer(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<float>& delayBuffer, int channel);
     void HandyFXAudioProcessor::fillCircularBuffer(juce::AudioBuffer<float>& buffer, int channel);
     void HandyFXAudioProcessor::updateWritePosition(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<float>& delayBuffer);
-
+    //==============================================================================
     //==============================================================================
     // 
     juce::AudioProcessorValueTreeState parameters{ *this, nullptr, "Parameters", createParameterLayout() };
@@ -82,10 +82,12 @@ private:
     int writePosition = { 0 };
     juce::AudioBuffer<float> delayBuffer;
     AubioWrapper aubioWrapper;
-
+    //==============================================================================
+    juce::dsp::Reverb reverb;
+    juce::dsp::Reverb::Parameters reverbParams;
     //==============================================================================
     float getDelayTimeFraction(int index);
-
+    void setReverbParams();
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     std::unique_ptr<juce::AudioProcessorParameterGroup> createDelayParameterGroup();
     std::unique_ptr<juce::AudioProcessorParameterGroup> createReverbParameterGroup();
