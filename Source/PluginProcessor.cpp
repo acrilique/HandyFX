@@ -258,14 +258,59 @@ void HandyFXAudioProcessor::updateWritePosition(juce::AudioBuffer<float>& buffer
 
 //==============================================================================
 
-juce::AudioProcessorValueTreeState::ParameterLayout HandyFXAudioProcessor::createParameterLayout() 
+//==============================================================================
+// 
+
+juce::AudioProcessorValueTreeState::ParameterLayout HandyFXAudioProcessor::createParameterLayout()
 {
-    juce::AudioProcessorValueTreeState::ParameterLayout layout;
-	layout.add(std::make_unique<juce::AudioParameterFloat>("Delay", "Delay", 0.0f, 2.0f, 0.5f));
-	layout.add(std::make_unique<juce::AudioParameterFloat>("Feedback", "Feedback", 0.0f, 1.0f, 0.5f));
-	layout.add(std::make_unique<juce::AudioParameterBool>("TempoSync", "Tempo Sync", false));
-    layout.add(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("DelayDiv"), "Delay Div", juce::StringArray{ "1/8", "1/4", "1/2", "3/4", "1/1", "2/1" }, 0));
-	return layout;
+    juce::AudioProcessorValueTreeState::ParameterLayout params;
+
+    // Add the ComboBox parameter
+    params.add(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("Effect"), "Effect", juce::StringArray{ "Delay", "Reverb", "Vibrato" }, 0));
+
+    // Add the effect-specific groups
+
+    params.add(createDelayParameterGroup());
+    params.add(createReverbParameterGroup());
+    params.add(createVibratoParameterGroup());
+
+    return params;
+}
+
+
+// Delay Parameter Group
+std::unique_ptr<juce::AudioProcessorParameterGroup> HandyFXAudioProcessor::createDelayParameterGroup()
+{
+    auto group = std::make_unique<juce::AudioProcessorParameterGroup>("Delay", "Delay", "|");
+
+    // Add your delay-specific parameters here
+    // Example: group->addChild(std::make_unique<AudioParameterFloat>(...));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("Delay", "Delay", juce::NormalisableRange<float>(0.0f, 2.0f, 0.01f), 1.0f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("Feedback", "Feedback", juce::NormalisableRange<float>(0.1f, 10.f, 0.05f, 1.f), 0.7f));
+    group->addChild(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("DelayDiv"), "Delay Div", juce::StringArray{ "1/8", "1/4", "1/2", "3/4", "1", "2" }, 0));
+    group->addChild(std::make_unique<juce::AudioParameterBool>("TempoSync", "Tempo Sync", false));
+
+    return group;
+}
+
+// Reverb Parameter Group
+std::unique_ptr<juce::AudioProcessorParameterGroup> HandyFXAudioProcessor::createReverbParameterGroup()
+{
+    auto group = std::make_unique<juce::AudioProcessorParameterGroup>("reverb", "Reverb", "|");
+
+    // Add your reverb-specific parameters here
+
+    return group;
+}
+
+// Vibrato Parameter Group
+std::unique_ptr<juce::AudioProcessorParameterGroup> HandyFXAudioProcessor::createVibratoParameterGroup()
+{
+    auto group = std::make_unique<juce::AudioProcessorParameterGroup>("vibrato", "Vibrato", "|");
+
+    // Add your vibrato-specific parameters here
+
+    return group;
 }
 
 float HandyFXAudioProcessor::getDelayTimeFraction(int index)

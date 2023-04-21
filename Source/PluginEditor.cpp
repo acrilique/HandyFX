@@ -19,7 +19,7 @@ HandyFXAudioProcessorEditor::HandyFXAudioProcessorEditor (HandyFXAudioProcessor&
     addAndMakeVisible(effectSelector);
     effectSelector.addItem("Delay", 1);
     effectSelector.addItem("Reverb", 2);
-    effectSelector.addItem("Chorus", 3);
+    effectSelector.addItem("Vibrato", 3);
     effectSelector.addListener(this);
 
     effectSelector.setSelectedId(1); // Set "Delay" as the default value

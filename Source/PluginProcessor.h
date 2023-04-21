@@ -87,6 +87,9 @@ private:
     float getDelayTimeFraction(int index);
 
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    std::unique_ptr<juce::AudioProcessorParameterGroup> createDelayParameterGroup();
+    std::unique_ptr<juce::AudioProcessorParameterGroup> createReverbParameterGroup();
+    std::unique_ptr<juce::AudioProcessorParameterGroup> createVibratoParameterGroup();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HandyFXAudioProcessor)
 };
