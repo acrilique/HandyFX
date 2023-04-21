@@ -27,11 +27,15 @@ HandyFXAudioProcessorEditor::HandyFXAudioProcessorEditor (HandyFXAudioProcessor&
     delayControls = std::make_unique<DelayControls>(p);
     addAndMakeVisible(delayControls.get());
 
+    reverbControls = std::make_unique<ReverbControls>(p);
+    addAndMakeVisible(reverbControls.get());
+
     delayControls.get()->setVisible(true);
+    reverbControls.get()->setVisible(false);
 
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 200);
+    setSize (600, 600);
 
     startTimer(300);
 }
@@ -46,16 +50,18 @@ void HandyFXAudioProcessorEditor::comboBoxChanged(juce::ComboBox* comboBoxThatHa
     {
         switch (effectSelector.getSelectedId())
         {
-		case 1:
-			delayControls.get()->setVisible(true);
+            case 1:
+			    delayControls.get()->setVisible(true);
+			    reverbControls.get()->setVisible(false);
 			break;
-		case 2:
-			delayControls.get()->setVisible(false);
-			break;
-		case 3:
-			delayControls.get()->setVisible(false);
-			break;
-		}
+            case 2:
+                delayControls.get()->setVisible(false);
+                reverbControls.get()->setVisible(true);
+            break;
+            case 3:
+				delayControls.get()->setVisible(false);
+				reverbControls.get()->setVisible(false);
+        }
 	}
 }
 

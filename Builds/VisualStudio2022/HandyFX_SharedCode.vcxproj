@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -133,7 +133,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AubioWrapper.cpp" />
-    <ClCompile Include="..\..\Source\DelayControls.cpp" />
+    <ClCompile Include="..\..\Source\gui\DelayControls.cpp" />
+    <ClCompile Include="..\..\Source\gui\ReverbControls.cpp" />
+    <ClCompile Include="..\..\Source\gui\VibratoControls.cpp" />
     <ClCompile Include="..\..\Source\PluginProcessor.cpp" />
     <ClCompile Include="..\..\Source\PluginEditor.cpp" />
     <ClCompile Include="..\..\..\..\VSCode\user_modules\foleys_gui_magic\Editor\foleys_GUITreeEditor.cpp">
@@ -2576,7 +2578,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AubioWrapper.h" />
-    <ClInclude Include="..\..\Source\DelayControls.h" />
+    <ClInclude Include="..\..\Source\gui\DelayControls.h" />
+    <ClInclude Include="..\..\Source\gui\ReverbControls.h" />
+    <ClInclude Include="..\..\Source\gui\VibratoControls.h" />
     <ClInclude Include="..\..\Source\PluginProcessor.h" />
     <ClInclude Include="..\..\Source\PluginEditor.h" />
     <ClInclude Include="..\..\..\..\VSCode\user_modules\foleys_gui_magic\Editor\foleys_GUITreeEditor.h" />

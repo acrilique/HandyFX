@@ -10,7 +10,8 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "DelayControls.h"
+#include "gui/DelayControls.h"
+#include "gui/ReverbControls.h"
 
 //==============================================================================
 /**
@@ -35,6 +36,7 @@ private:
     juce::ComboBox effectSelector;
     void comboBoxChanged(juce::ComboBox* comboBoxThatHasChanged);
     std::unique_ptr<DelayControls> delayControls;
+    std::unique_ptr<ReverbControls> reverbControls;
 
     void timerCallback() override;
 

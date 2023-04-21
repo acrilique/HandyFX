@@ -637,6 +637,9 @@
     <Filter Include="JUCE Library Code">
       <UniqueIdentifier>{7ED5A90E-41AF-A1EF-659B-37CEEAB9BA61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HandyFX\Source\gui">
+      <UniqueIdentifier>{ac95c6d0-608b-4ea7-9a26-b49e37df0c05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp">
@@ -3117,8 +3120,14 @@
     <ClCompile Include="..\..\Source\AubioWrapper.cpp">
       <Filter>HandyFX\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\DelayControls.cpp">
-      <Filter>HandyFX\Source</Filter>
+    <ClCompile Include="..\..\Source\gui\DelayControls.cpp">
+      <Filter>HandyFX\Source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\gui\VibratoControls.cpp">
+      <Filter>HandyFX\Source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\gui\ReverbControls.cpp">
+      <Filter>HandyFX\Source\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -6149,8 +6158,14 @@
     <ClInclude Include="..\..\Source\AubioWrapper.h">
       <Filter>HandyFX\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DelayControls.h">
-      <Filter>HandyFX\Source</Filter>
+    <ClInclude Include="..\..\Source\gui\DelayControls.h">
+      <Filter>HandyFX\Source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\gui\VibratoControls.h">
+      <Filter>HandyFX\Source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\gui\ReverbControls.h">
+      <Filter>HandyFX\Source\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
