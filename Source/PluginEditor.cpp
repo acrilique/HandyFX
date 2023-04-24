@@ -62,7 +62,10 @@ void HandyFXAudioProcessorEditor::comboBoxChanged(juce::ComboBox* comboBoxThatHa
 				delayControls.get()->setVisible(false);
 				reverbControls.get()->setVisible(false);
         }
-	}
+	    
+        audioProcessor.parameters.getRawParameterValue("Effect")->store(effectSelector.getSelectedId()-1);
+
+    }
 }
 
 //==============================================================================

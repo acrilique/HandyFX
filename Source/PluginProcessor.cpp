@@ -135,8 +135,16 @@ void HandyFXAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
     // initialisation that you need..
     auto delayBufferSize = static_cast<int>(sampleRate * 2.0);
     delayBuffer.setSize(getTotalNumOutputChannels(), delayBufferSize);
+    
     aubioWrapper.initialiseWrapper(sampleRate, samplesPerBlock);
+
     reverb.setParameters(reverbParams);
+    reverb.setEnabled(true);
+    juce::dsp::ProcessSpec reverbSpec{};
+    reverbSpec.sampleRate = sampleRate;
+    reverbSpec.maximumBlockSize = samplesPerBlock;
+    reverbSpec.numChannels = getTotalNumOutputChannels();
+    reverb.prepare(reverbSpec);
 }
 
 void HandyFXAudioProcessor::releaseResources()
@@ -181,17 +189,31 @@ void HandyFXAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
+    int value = *parameters.getRawParameterValue("Effect");
+    if (*parameters.getRawParameterValue("Effect") == 0) {
 
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
+        for (int channel = 0; channel < totalNumInputChannels; ++channel)
+        {
 
-        fillCircularBuffer(buffer, channel);
-        readCircularBuffer(buffer, delayBuffer, channel);
-        fillCircularBuffer(buffer, channel);
+            fillCircularBuffer(buffer, channel);
+            readCircularBuffer(buffer, delayBuffer, channel);
+            fillCircularBuffer(buffer, channel);
+
+        }
+
+        updateWritePosition(buffer, delayBuffer);
 
     }
+    else if (*parameters.getRawParameterValue("Effect") == 1) {
 
-    updateWritePosition(buffer, delayBuffer);
+        setReverbParams();
+        reverb.setParameters(reverbParams);
+
+        juce::dsp::AudioBlock<float> block(buffer);
+        juce::dsp::ProcessContextReplacing<float> context(block);
+
+        reverb.process(context);
+    }
 
 }
 
