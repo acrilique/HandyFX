@@ -189,7 +189,7 @@ void HandyFXAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-    int value = *parameters.getRawParameterValue("Effect");
+
     if (*parameters.getRawParameterValue("Effect") == 0) {
 
         for (int channel = 0; channel < totalNumInputChannels; ++channel)
