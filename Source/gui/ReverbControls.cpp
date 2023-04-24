@@ -12,27 +12,27 @@ ReverbControls::ReverbControls(HandyFXAudioProcessor& p) : audioProcessor(p),
 	
 	// Create the sliders
 	roomSizeSlider->setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-	roomSizeSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 50, 20);
+	roomSizeSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 20);
 	roomSizeSlider->setRange(0.0f, 1.0f, 0.01f);
 	roomSizeSlider->addListener(this);
 
 	dampingSlider->setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-	dampingSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 50, 20);
+	dampingSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 20);
 	dampingSlider->setRange(0.0f, 1.0f, 0.01f);
 	dampingSlider->addListener(this);
 
 	widthSlider->setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-	widthSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 50, 20);
+	widthSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 20);
 	widthSlider->setRange(0.0f, 1.0f, 0.01f);
 	widthSlider->addListener(this);
 
 	wetLevelSlider->setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-	wetLevelSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 50, 20);
+	wetLevelSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 20);
 	wetLevelSlider->setRange(0.0f, 1.0f, 0.01f);
 	wetLevelSlider->addListener(this);
 
 	dryLevelSlider->setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-	dryLevelSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 50, 20);
+	dryLevelSlider->setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 20);
 	dryLevelSlider->setRange(0.0f, 1.0f, 0.01f);
 	dryLevelSlider->addListener(this);
 
@@ -81,11 +81,11 @@ void ReverbControls::resized()
 	// This method is where you should set the bounds of any child
 	// components that your component contains..
 	// Set the sliders' bounds
-	roomSizeSlider->setBounds(10, 30, 100, 100);
-	dampingSlider->setBounds(120, 30, 100, 100);
-	widthSlider->setBounds(230, 30, 100, 100);
-	wetLevelSlider->setBounds(340, 30, 100, 100);
-	dryLevelSlider->setBounds(450, 30, 100, 100);
+	roomSizeSlider->setBounds(10, 240, 120, 120);
+	dampingSlider->setBounds(230, 240, 120, 120);
+	widthSlider->setBounds(450, 240, 120, 120);
+	wetLevelSlider->setBounds(120, 0, 120, 120);
+	dryLevelSlider->setBounds(340, 0, 120, 120);
 }
 
 void ReverbControls::sliderValueChanged(juce::Slider* slider)

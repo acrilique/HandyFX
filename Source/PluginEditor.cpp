@@ -80,7 +80,8 @@ void HandyFXAudioProcessorEditor::resized()
 
     effectSelector.setBounds(10, 10, getWidth() - 20, 30);
     delayControls->setBounds(10, 50, getWidth() - 20, getHeight() - 60);
-    currentBPMLabel.setBounds(10, getHeight() - 40, getWidth() - 20, 30);
+    reverbControls->setBounds(10, 100, getWidth(), getHeight());
+    currentBPMLabel.setBounds(10, getHeight() - 40, getWidth() - 20, 20);
 
 }
 
