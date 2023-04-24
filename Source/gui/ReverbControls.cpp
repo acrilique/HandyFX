@@ -65,15 +65,15 @@ ReverbControls::~ReverbControls()
 
 void ReverbControls::paint(juce::Graphics& g)
 {
-	//// (Our component is opaque, so we must completely fill the background with a solid colour)
-	//g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
-	//// Draw the background
-	//g.setColour(juce::Colours::black);
-	//g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
-	//g.setColour(juce::Colours::white);
-	//g.setFont(15.0f);
-	//g.drawText("Reverb Controls", getLocalBounds(),
-	//			juce::Justification::centred, true);   // draw some placeholder text
+	// (Our component is opaque, so we must completely fill the background with a solid colour)
+	g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
+	// Draw the background
+	g.setColour(juce::Colours::black);
+	g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
+	g.setColour(juce::Colours::white);
+	g.setFont(15.0f);
+	g.drawText("Reverb Controls", getLocalBounds(),
+				juce::Justification::centred, true);   // draw some placeholder text
 }
 
 void ReverbControls::resized()

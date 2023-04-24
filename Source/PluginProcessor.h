@@ -83,6 +83,9 @@ private:
     juce::AudioBuffer<float> delayBuffer;
     AubioWrapper aubioWrapper;
     //==============================================================================
+    juce::SmoothedValue<float> feedbackSmoothed;
+    juce::SmoothedValue<float> delaySmoothed;
+    //==============================================================================
     juce::dsp::Reverb reverb;
     juce::dsp::Reverb::Parameters reverbParams;
     //==============================================================================

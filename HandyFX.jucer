@@ -4,6 +4,19 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="qiOnTi" name="HandyFX">
     <GROUP id="{2D25973F-B79B-6600-657F-D2B8D61944C3}" name="Source">
+      <GROUP id="{037F2ED7-AAA7-68E2-CDCB-458FBCD23D48}" name="gui">
+        <FILE id="vpO9UZ" name="DelayControls.cpp" compile="1" resource="0"
+              file="Source/gui/DelayControls.cpp"/>
+        <FILE id="dGr3hb" name="DelayControls.h" compile="0" resource="0" file="Source/gui/DelayControls.h"/>
+        <FILE id="mFbiaQ" name="ReverbControls.cpp" compile="1" resource="0"
+              file="Source/gui/ReverbControls.cpp"/>
+        <FILE id="f2K0Hd" name="ReverbControls.h" compile="0" resource="0"
+              file="Source/gui/ReverbControls.h"/>
+        <FILE id="xSMktA" name="VibratoControls.cpp" compile="1" resource="0"
+              file="Source/gui/VibratoControls.cpp"/>
+        <FILE id="npkhZ6" name="VibratoControls.h" compile="0" resource="0"
+              file="Source/gui/VibratoControls.h"/>
+      </GROUP>
       <FILE id="J6RJgw" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="ildFsP" name="PluginProcessor.h" compile="0" resource="0"
@@ -11,9 +24,13 @@
       <FILE id="l51DB5" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="b7khwf" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="m4Yppc" name="AubioWrapper.h" compile="0" resource="0" file="Source/AubioWrapper.h"/>
+      <FILE id="iCWb8X" name="AubioWrapper.cpp" compile="1" resource="0"
+            file="Source/AubioWrapper.cpp"/>
     </GROUP>
   </MAINGROUP>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"
+               JUCE_ASIO="1"/>
   <EXPORTFORMATS>
     <VS2022 targetFolder="Builds/VisualStudio2022">
       <CONFIGURATIONS>
@@ -37,12 +54,10 @@
         <MODULEPATH id="juce_graphics" path="../../VSCode/JUCE/JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../VSCode/JUCE/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../VSCode/JUCE/JUCE/modules"/>
-        <MODULEPATH id="foleys_gui_magic" path="../../VSCode/user_modules"/>
       </MODULEPATHS>
     </VS2022>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="foleys_gui_magic" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

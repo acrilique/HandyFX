@@ -219,19 +219,20 @@ void HandyFXAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
 
 void HandyFXAudioProcessor::readCircularBuffer(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<float>& delayBuffer, int channel)
 {
-    float feedback = *parameters.getRawParameterValue("Feedback");
+    feedbackSmoothed.setTargetValue(*parameters.getRawParameterValue("Feedback"));
     bool tempoSync = parameters.getRawParameterValue("TempoSync")->load();
-    float delayTime;
+    
     if (tempoSync == true) {
-        delayTime = aubioWrapper.getDelayTime(getDelayTimeFraction(*parameters.getRawParameterValue("DelayDiv")));
+        delaySmoothed.setTargetValue(aubioWrapper.getDelayTime(getDelayTimeFraction(*parameters.getRawParameterValue("DelayDiv"))));
     }
     else {
-        delayTime = *parameters.getRawParameterValue("Delay");
+        delaySmoothed.setTargetValue(*parameters.getRawParameterValue("Delay"));
     }
     auto bufferSize = buffer.getNumSamples();
     auto delayBufferSize = delayBuffer.getNumSamples();
+    const float delayTime = delaySmoothed.getNextValue();
     auto readPosition = writePosition - delayTime * getSampleRate();
-    float g = feedback;
+    const float g = feedbackSmoothed.getNextValue();
     if (readPosition < 0)
         readPosition += delayBufferSize;
 
