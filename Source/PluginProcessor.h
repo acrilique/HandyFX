@@ -70,12 +70,6 @@ public:
     // 
     juce::AudioProcessorValueTreeState parameters{ *this, nullptr, "Parameters", createParameterLayout() };
 
-    //juce::AudioParameterFloat *delayParam = nullptr;
-    //juce::AudioParameterFloat *feedbackParam = nullptr;
-    //juce::AudioParameterBool *tempoSyncParam = nullptr;
-    //juce::AudioParameterChoice *delayDivParam = nullptr;
-    //juce::AudioProcessorParameter *wetDryParam = nullptr;
-
     float getBPM();
 
 private:
@@ -88,13 +82,18 @@ private:
     //==============================================================================
     juce::dsp::Reverb reverb;
     juce::dsp::Reverb::Parameters reverbParams;
+    juce::dsp::Chorus<float> vibrato;
     //==============================================================================
     float getDelayTimeFraction(int index);
     void setReverbParams();
+    void setVibratoParams();
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     std::unique_ptr<juce::AudioProcessorParameterGroup> createDelayParameterGroup();
     std::unique_ptr<juce::AudioProcessorParameterGroup> createReverbParameterGroup();
     std::unique_ptr<juce::AudioProcessorParameterGroup> createVibratoParameterGroup();
     //==============================================================================
+    void applyChosenEffect(juce::AudioBuffer<float>& buffer, int inputChannels);
+    //==============================================================================
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HandyFXAudioProcessor)
 };

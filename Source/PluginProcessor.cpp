@@ -28,10 +28,7 @@ HandyFXAudioProcessor::HandyFXAudioProcessor()
 {
     parameters.state = juce::ValueTree(juce::Identifier("HandyFXPlugin"));
     setReverbParams();
-    //addParameter(feedbackParam = new juce::AudioParameterFloat("Feedback", "Feedback", juce::NormalisableRange<float>(0.1f, 10.f, 0.05f, 1.f), 0.7f));
-    //addParameter(delayParam = new juce::AudioParameterFloat("Delay", "Delay", juce::NormalisableRange<float>(0.01f, 2.f, 0.01f, 1.f), 1.f));
-    //addParameter(tempoSyncParam = new juce::AudioParameterBool("TempoSync", "Tempo Sync", false));
-    //addParameter(delayDivParam = new juce::AudioParameterChoice("DelayDiv", "Delay Div", juce::StringArray("1/1", "3/4", "1/2", "1/4", "1/8", "1/16"), 0));
+    setVibratoParams();
 }
 
 HandyFXAudioProcessor::~HandyFXAudioProcessor()
@@ -139,12 +136,18 @@ void HandyFXAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
     aubioWrapper.initialiseWrapper(sampleRate, samplesPerBlock);
 
     reverb.setParameters(reverbParams);
+    setVibratoParams();
+
     reverb.setEnabled(true);
-    juce::dsp::ProcessSpec reverbSpec{};
-    reverbSpec.sampleRate = sampleRate;
-    reverbSpec.maximumBlockSize = samplesPerBlock;
-    reverbSpec.numChannels = getTotalNumOutputChannels();
-    reverb.prepare(reverbSpec);
+
+    juce::dsp::ProcessSpec spec{};
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = getTotalNumOutputChannels();
+    
+    reverb.prepare(spec);
+    vibrato.prepare(spec);
+
 }
 
 void HandyFXAudioProcessor::releaseResources()
@@ -190,35 +193,41 @@ void HandyFXAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    if (*parameters.getRawParameterValue("Effect") == 0) {
+    applyChosenEffect(buffer, totalNumInputChannels);
 
-        for (int channel = 0; channel < totalNumInputChannels; ++channel)
+}
+
+void HandyFXAudioProcessor::applyChosenEffect(juce::AudioBuffer<float>& buffer, int inputChannels)
+{
+    int effect = *parameters.getRawParameterValue("Effect");
+    if (effect == 0) { // Delay
+        for (int channel = 0; channel < inputChannels; ++channel)
         {
-
-            fillCircularBuffer(buffer, channel);
-            readCircularBuffer(buffer, delayBuffer, channel);
-            fillCircularBuffer(buffer, channel);
-
-        }
-
-        updateWritePosition(buffer, delayBuffer);
-
-    }
-    else if (*parameters.getRawParameterValue("Effect") == 1) {
-
-        setReverbParams();
-        reverb.setParameters(reverbParams);
-
+			fillCircularBuffer(buffer, channel);
+			readCircularBuffer(buffer, delayBuffer, channel);
+			fillCircularBuffer(buffer, channel);
+		}
+		updateWritePosition(buffer, delayBuffer);
+	}
+    else if (effect == 1 || effect == 2) { 
+		
         juce::dsp::AudioBlock<float> block(buffer);
-        juce::dsp::ProcessContextReplacing<float> context(block);
-
-        reverb.process(context);
+		juce::dsp::ProcessContextReplacing<float> context(block);
+        
+        if (effect == 1) { // Reverb
+            setReverbParams();
+            reverb.process(context);
+        }
+		else if (effect == 2) { // Vibrato
+        	setVibratoParams();
+        	vibrato.process(context);
+        }
     }
-
 }
 
 void HandyFXAudioProcessor::readCircularBuffer(juce::AudioBuffer<float>& buffer, juce::AudioBuffer<float>& delayBuffer, int channel)
 {
+
     feedbackSmoothed.setTargetValue(*parameters.getRawParameterValue("Feedback"));
     bool tempoSync = parameters.getRawParameterValue("TempoSync")->load();
     
@@ -228,6 +237,7 @@ void HandyFXAudioProcessor::readCircularBuffer(juce::AudioBuffer<float>& buffer,
     else {
         delaySmoothed.setTargetValue(*parameters.getRawParameterValue("Delay"));
     }
+
     auto bufferSize = buffer.getNumSamples();
     auto delayBufferSize = delayBuffer.getNumSamples();
     const float delayTime = delaySmoothed.getNextValue();
@@ -293,6 +303,15 @@ void HandyFXAudioProcessor::setReverbParams()
 	reverbParams.wetLevel = *parameters.getRawParameterValue("WetLevel");
 	reverb.setParameters(reverbParams);
 }
+
+void HandyFXAudioProcessor::setVibratoParams()
+{
+	vibrato.setRate(*parameters.getRawParameterValue("Rate"));
+    vibrato.setDepth(*parameters.getRawParameterValue("Depth"));
+    vibrato.setCentreDelay(*parameters.getRawParameterValue("CentreDelay"));
+    vibrato.setFeedback(*parameters.getRawParameterValue("VibratoFeedback"));
+    vibrato.setMix(*parameters.getRawParameterValue("Mix"));
+}
 //==============================================================================
 // 
 
@@ -349,6 +368,11 @@ std::unique_ptr<juce::AudioProcessorParameterGroup> HandyFXAudioProcessor::creat
     auto group = std::make_unique<juce::AudioProcessorParameterGroup>("vibrato", "Vibrato", "|");
 
     // Add your vibrato-specific parameters here
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("Rate", "Rate", juce::NormalisableRange<float>(0.0f, 100.0f, 0.01f), 5.0f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("Depth", "Depth", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("CentreDelay", "Centre Delay", juce::NormalisableRange<float>(1.0f, 100.0f, 0.1f), 8.0f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("VibratoFeedback", "Feedback", juce::NormalisableRange<float>(-1.0f, 1.0f, 0.01f), 0.0f));
+    group->addChild(std::make_unique<juce::AudioParameterFloat>("Mix", "Mix", juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f), 1.0f));
 
     return group;
 }

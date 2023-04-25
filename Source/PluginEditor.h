@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "gui/DelayControls.h"
 #include "gui/ReverbControls.h"
+#include "gui/VibratoControls.h"
 
 //==============================================================================
 /**
@@ -37,6 +38,7 @@ private:
     void comboBoxChanged(juce::ComboBox* comboBoxThatHasChanged);
     std::unique_ptr<DelayControls> delayControls;
     std::unique_ptr<ReverbControls> reverbControls;
+    std::unique_ptr<VibratoControls> vibratoControls;
 
     void timerCallback() override;
 

@@ -30,8 +30,12 @@ HandyFXAudioProcessorEditor::HandyFXAudioProcessorEditor (HandyFXAudioProcessor&
     reverbControls = std::make_unique<ReverbControls>(p);
     addAndMakeVisible(reverbControls.get());
 
+    vibratoControls = std::make_unique<VibratoControls>(p);
+    addAndMakeVisible(vibratoControls.get());
+
     delayControls.get()->setVisible(true);
     reverbControls.get()->setVisible(false);
+    vibratoControls.get()->setVisible(false);
 
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -53,14 +57,17 @@ void HandyFXAudioProcessorEditor::comboBoxChanged(juce::ComboBox* comboBoxThatHa
             case 1:
 			    delayControls.get()->setVisible(true);
 			    reverbControls.get()->setVisible(false);
+                vibratoControls.get()->setVisible(false);
 			break;
             case 2:
                 delayControls.get()->setVisible(false);
                 reverbControls.get()->setVisible(true);
+                vibratoControls.get()->setVisible(false);
             break;
             case 3:
 				delayControls.get()->setVisible(false);
 				reverbControls.get()->setVisible(false);
+                vibratoControls.get()->setVisible(true);
         }
 	    
         audioProcessor.parameters.getRawParameterValue("Effect")->store(effectSelector.getSelectedId()-1);
@@ -84,6 +91,7 @@ void HandyFXAudioProcessorEditor::resized()
     effectSelector.setBounds(10, 10, getWidth() - 20, 30);
     delayControls->setBounds(10, 50, getWidth() - 20, getHeight() - 60);
     reverbControls->setBounds(10, 100, getWidth() - 20, getHeight() - 230);
+    vibratoControls->setBounds(10, 100, getWidth() - 20, getHeight() - 230);
     currentBPMLabel.setBounds(10, getHeight() - 40, getWidth() - 20, 20);
 
 }

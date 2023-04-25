@@ -10,7 +10,6 @@
 
 class VibratoControls : public juce::Component,
 	public juce::Slider::Listener,
-	public juce::ComboBox::Listener,
 	public juce::Button::Listener
 {
 public:
@@ -22,13 +21,15 @@ public:
 	void resized() override;
 	//==============================================================================
 	void sliderValueChanged(juce::Slider* slider) override;
-	void comboBoxChanged(juce::ComboBox* comboBox) override;
 	void buttonClicked(juce::Button* button) override;
 
 private:
 	HandyFXAudioProcessor& audioProcessor;
-	std::unique_ptr<juce::Slider> deepnessSlider;
-	std::unique_ptr<juce::ComboBox> vibrationComboBox;
-	std::unique_ptr<juce::Label> deepnessLabel;
-	std::unique_ptr<juce::Label> vibrationLabel;
+	std::unique_ptr<juce::Slider> rateSlider;
+	std::unique_ptr<juce::Slider> depthSlider;
+	std::unique_ptr<juce::Slider> delaySlider;
+	std::unique_ptr<juce::Slider> feedbackSlider;
+	std::unique_ptr<juce::Slider> mixSlider;
+	std::unique_ptr<juce::ToggleButton> vibratoButton;
+	std::unique_ptr<juce::ToggleButton> chorusButton;
 };
